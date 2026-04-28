@@ -1,0 +1,282 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Kpop - loja online de colecionaveis com catalogo, filtros e carrinho de compras em HTML/CSS/JS." />
+  <title>Kpop | Seu cantinho de colecionaveis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <div class="logo">KPOP</div>
+      <nav class="navbar">
+        <ul>
+          <li><a data-target="home" onclick="showView('home')">Home</a></li>
+          <li><a data-target="shop" onclick="showView('shop')">Loja</a></li>
+          <li><a data-target="photocards" onclick="showView('photocards')">Photocards</a></li>
+          <li><a data-target="about" onclick="showView('about')">Sobre</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <div class="search-wrapper" style="position: relative;">
+          <button type="button" class="icon-button search-toggle" onclick="toggleSearch()">
+            <i data-lucide="search"></i>
+          </button>
+          <form id="searchForm" class="searchbar" autocomplete="off">
+            <input id="searchInput" type="search" placeholder="Buscar produtos..." />
+          </form>
+        </div>
+        <div style="position: relative; cursor:pointer;" onclick="showView('cart')">
+          <i data-lucide="shopping-bag"></i>
+          <span class="badge-counter">0</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="home" class="page-section active">
+    <div class="slider-container">
+      <div class="slider-wrapper" id="sliderWrapper">
+        <div class="slide slide-1">
+          <div class="slide-content">
+            <span style="font-weight: 700; color: var(--primary);">PROMOÇÃO DE ESTREIA</span>
+            <h1>Seu cantinho de fofura 💿✨</h1>
+            <p>Use o cupom <strong>MEMO10</strong> e ganhe 10% de desconto na sua primeira compra.</p>
+            <button class="btn btn-primary" type="button" onclick="showView('shop')">Ver Novidades</button>
+          </div>
+          <div class="slide-img">
+            <i data-lucide="sparkles" size="180" style="color: var(--primary); opacity: 0.5;"></i>
+          </div>
+        </div>
+        <div class="slide slide-2">
+          <div class="slide-content">
+            <span style="font-weight: 700;">K-POP ESSENTIALS</span>
+            <h1>Proteja seus Photocards!</h1>
+            <p>Photoholders, binders e sleeves com a estética que você ama.</p>
+            <button class="btn btn-white" type="button" onclick="showView('shop')">Explorar Coleção</button>
+          </div>
+          <div class="slide-img">
+            <i data-lucide="disc" size="180"></i>
+          </div>
+        </div>
+        <div class="slide slide-3">
+          <div class="slide-content">
+            <span style="font-weight: 700; color: var(--secondary);">UNIVERSO GEEK</span>
+            <h1>Figuras e Acessórios</h1>
+            <p>De animes a heróis, os melhores itens para sua estante estão aqui.</p>
+            <button class="btn btn-primary" type="button" onclick="showView('shop')">Ver Geek World</button>
+          </div>
+          <div class="slide-img">
+            <i data-lucide="zap" size="180" style="color: var(--primary);"></i>
+          </div>
+        </div>
+      </div>
+      <button class="slider-btn prev" onclick="moveSlider(-1)"><i data-lucide="chevron-left"></i></button>
+      <button class="slider-btn next" onclick="moveSlider(1)"><i data-lucide="chevron-right"></i></button>
+      <div class="dots" id="dotContainer">
+        <div class="dot active" onclick="jumpToSlide(0)"></div>
+        <div class="dot" onclick="jumpToSlide(1)"></div>
+        <div class="dot" onclick="jumpToSlide(2)"></div>
+      </div>
+    </div>
+
+    <div class="cat-grid">
+      <div class="cat-item">
+        <div class="cat-icon"><i data-lucide="music"></i></div>
+        <span>K-pop</span>
+      </div>
+      <div class="cat-item">
+        <div class="cat-icon"><i data-lucide="tv"></i></div>
+        <span>Anime</span>
+      </div>
+      <div class="cat-item">
+        <div class="cat-icon"><i data-lucide="shield"></i></div>
+        <span>Heróis</span>
+      </div>
+      <div class="cat-item">
+        <div class="cat-icon"><i data-lucide="gem"></i></div>
+        <span>Acessórios</span>
+      </div>
+      <div class="cat-item">
+        <div class="cat-icon"><i data-lucide="package"></i></div>
+        <span>Utility</span>
+      </div>
+    </div>
+
+    <div class="section-head">
+      <h2>Destaques da Kpop</h2>
+      <button class="section-link" onclick="showView('shop')" type="button">Ver todos →</button>
+    </div>
+
+    <div class="product-grid">
+      <article class="product-card product-card-compact">
+        <span class="product-tag hot">HOT</span>
+        <button class="wish-btn" type="button" aria-label="Favoritar produto">
+          <i data-lucide="heart"></i>
+        </button>
+        <div class="product-image"></div>
+        <h3>Photoholder Bunny Pink</h3>
+        <p class="product-price">R$ 45,90</p>
+        <button class="add-round" type="button" onclick="addToCart(1)" aria-label="Adicionar ao carrinho">
+          <i data-lucide="plus"></i>
+        </button>
+      </article>
+      <article class="product-card product-card-compact">
+        <span class="product-tag new">NOVO</span>
+        <button class="wish-btn" type="button" aria-label="Favoritar produto">
+          <i data-lucide="heart"></i>
+        </button>
+        <div class="product-image"></div>
+        <h3>Action Figure Anime Girl</h3>
+        <p class="product-price">R$ 189,00</p>
+        <button class="add-round" type="button" onclick="addToCart(2)" aria-label="Adicionar ao carrinho">
+          <i data-lucide="plus"></i>
+        </button>
+      </article>
+      <article class="product-card product-card-compact">
+        <button class="wish-btn" type="button" aria-label="Favoritar produto">
+          <i data-lucide="heart"></i>
+        </button>
+        <div class="product-image"></div>
+        <h3>Chaveiro Acrílico K-Group</h3>
+        <p class="product-price">R$ 25,00</p>
+        <button class="add-round" type="button" onclick="addToCart(3)" aria-label="Adicionar ao carrinho">
+          <i data-lucide="plus"></i>
+        </button>
+      </article>
+      <article class="product-card product-card-compact">
+        <button class="wish-btn" type="button" aria-label="Favoritar produto">
+          <i data-lucide="heart"></i>
+        </button>
+        <div class="product-image"></div>
+        <h3>Caderno Geek Minimalista</h3>
+        <p class="product-price">R$ 32,00</p>
+        <button class="add-round" type="button" onclick="addToCart(4)" aria-label="Adicionar ao carrinho">
+          <i data-lucide="plus"></i>
+        </button>
+      </article>
+    </div>
+  </main>
+
+  <section id="shop" class="page-section">
+    <div class="section-title">
+      <div>
+        <h2>Loja Kpop</h2>
+        <p>Explore as categorias e encontre seus itens favoritos.</p>
+      </div>
+    </div>
+    <div class="shop-layout">
+      <aside class="shop-filters">
+        <h3>Filtros</h3>
+        <div class="filter-menu-shell">
+          <div class="filter-main-menu" id="shopMainFilters"></div>
+          <div class="filter-sub-menu" id="shopSubFilters"></div>
+        </div>
+        <div class="filter-group">
+          <h4>Preço</h4>
+          <div class="price-head">
+            <span>Até</span>
+            <strong id="priceValue">R$ 0,00</strong>
+          </div>
+          <input id="priceRange" type="range" min="0" max="100" step="1" value="100" />
+        </div>
+        <button id="clearFiltersBtn" type="button" class="clear-filters">Limpar filtros</button>
+      </aside>
+      <div class="products-grid"></div>
+    </div>
+  </section>
+
+  <section id="photocards" class="page-section">
+    <div class="section-title">
+      <div>
+        <h2>Photocards</h2>
+        <p>Escolha seus grupos e encontre os modelos disponiveis.</p>
+      </div>
+    </div>
+    <div class="photocard-layout">
+      <aside class="photocard-filters">
+        <h3>Grupos Atuais</h3>
+        <div class="photo-filter-columns">
+          <div class="photo-filter-group">
+            <h4>Boys Groups</h4>
+            <div id="photoBoysFilters"></div>
+          </div>
+          <div class="photo-filter-group">
+            <h4>Girl Groups</h4>
+            <div id="photoGirlsFilters"></div>
+          </div>
+        </div>
+        <button id="clearPhotoFiltersBtn" type="button" class="clear-filters">Limpar grupos</button>
+      </aside>
+      <div class="products-grid photocard-grid"></div>
+    </div>
+  </section>
+
+  <section id="about" class="page-section">
+    <div class="section-title">
+      <div>
+        <h2>Sobre a Kpop</h2>
+        <p>Somos um espaço feito para fãs de cultura pop que querem colecionar com charme.</p>
+      </div>
+    </div>
+    <div class="about-content">
+      <p>
+        Na Kpop você encontra produtos pensados para criadores de ambiente e colecionadores.
+        Aqui a experiência é leve e intuitiva, com itens selecionados para dar mais vida à sua
+        estante, seu quarto e sua rotina.
+      </p>
+    </div>
+  </section>
+
+  <section id="cart" class="page-section">
+    <div class="section-title">
+      <div>
+        <h2>Seu carrinho</h2>
+        <p>Confira os itens escolhidos e finalize a compra quando quiser.</p>
+      </div>
+    </div>
+    <div class="cart-list"></div>
+    <div class="cart-actions">
+      <div class="cart-summary">
+        <span>Total estimado</span>
+        <strong class="cart-total">R$ 0,00</strong>
+      </div>
+      <button class="btn btn-primary" type="button">Finalizar compra</button>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-col">
+        <h3>KPOP</h3>
+        <p>Levando fofura e cultura geek para todo o Brasil.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Links Úteis</h4>
+        <div class="footer-links">
+          <a href="#">Trocas e Devoluções</a>
+          <a href="#">Rastrear Pedido</a>
+          <a href="#">FAQ</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Newsletter</h4>
+        <p>Ganhe 10% OFF na primeira compra!</p>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Seu e-mail" />
+          <button type="button">OK</button>
+        </form>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
