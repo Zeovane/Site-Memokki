@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memokki | Seu cantinho de colecionáveis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary-orange: #f38f2a;
+            --dark-green: #3f5550;
+            --light-green: #93b77e;
+            --beige: #ffd7b3;
+            --white: #ffffff;
+            --bg-soft: #fff9f4;
+            --shadow: 0 10px 25px rgba(63, 85, 80, 0.08);
+            --radius: 24px;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Quicksand', sans-serif; }
+        body { background-color: var(--bg-soft); color: var(--dark-green); overflow-x: hidden; }
+        ul { list-style: none; }
+        a { text-decoration: none; color: inherit; cursor: pointer; }
+        button { cursor: pointer; border: none; outline: none; transition: var(--transition); }
+
+        /* HEADER */
+        header {
+            background: var(--white);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.03);
+        }
+
+        .logo {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--primary-orange);
+            letter-spacing: -1px;
+        }
+
+        nav ul { display: flex; gap: 2rem; }
+        nav ul li a:hover { color: var(--primary-orange); }
+
+        .nav-icons { display: flex; gap: 1.5rem; align-items: center; }
+        .cart-count {
+            background: var(--primary-orange);
+            color: white; font-size: 0.7rem; padding: 2px 6px;
+            border-radius: 50%; position: absolute; top: -5px; right: -10px;
+        }
+
+        /* SLIDER COMPONENT */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 450px;
+            margin-bottom: 3rem;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .slider-wrapper {
+            display: flex;
+            height: 100%;
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0 10%;
+            position: relative;
+        }
+
+        /* Slide Variants */
+        .slide-1 { background: var(--beige); }
+        .slide-2 { background: var(--light-green); color: white; }
+        .slide-3 { background: #fdf2e9; }
+
+        .slide-content { max-width: 500px; z-index: 5; }
+        .slide-content h1 { font-size: 3rem; line-height: 1.1; margin-bottom: 1rem; }
+        .slide-content p { font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9; }
+
+        .slide-img {
+            position: absolute;
+            right: 10%;
+            bottom: 0;
+            height: 90%;
+            filter: drop-shadow(10px 10px 20px rgba(0,0,0,0.1));
+        }
+
+        /* Slider Controls */
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-green);
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .slider-btn:hover { background: var(--primary-orange); color: white; }
+        .prev { left: 20px; }
+        .next { right: 20px; }
+
+        .dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .dot.active { background: var(--primary-orange); width: 30px; border-radius: 10px; }
+
+        /* BUTTONS */
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            display: inline-block;
+        }
+        .btn-primary { background: var(--primary-orange); color: white; }
+        .btn-white { background: var(--white); color: var(--dark-green); }
+
+        /* MAIN CONTENT */
+        .view-section { display: none; padding: 2rem 5%; animation: fadeIn 0.5s ease; }
+        .view-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* CATEGORIES */
+        .cat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+        .cat-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            text-align: center;
+            transition: var(--transition);
+        }
+        .cat-item:hover { transform: translateY(-10px); background: var(--beige); }
+        .cat-icon { 
+            width: 50px; height: 50px; background: var(--bg-soft); 
+            border-radius: 50%; display: flex; align-items: center; 
+            justify-content: center; margin: 0 auto 10px; color: var(--primary-orange);
+        }
+
+        /* PRODUCT GRID */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 2rem;
+        }
+        .product-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1rem;
+            position: relative;
+            box-shadow: var(--shadow);
+        }
+        .product-img {
+            width: 100%;
+            height: 240px;
+            background: #fdf2e9;
+            border-radius: 18px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .badge {
+            position: absolute;
+            top: 20px; left: 20px; padding: 4px 12px;
+            border-radius: 20px; font-size: 0.7rem; font-weight: 700; color: white;
+            background: var(--light-green);
+        }
+        .product-info h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+        .product-price { font-weight: 700; color: var(--primary-orange); }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            header nav { display: none; }
+            .slider-container { height: 550px; }
+            .slide { flex-direction: column; padding: 3rem 10%; text-align: center; }
+            .slide-content h1 { font-size: 2rem; }
+            .slide-img { position: relative; right: 0; height: 200px; margin-top: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">MEMOKKI</div>
+        <nav>
+            <ul>
+                <li><a onclick="showView('home')">Home</a></li>
+                <li><a onclick="showView('shop')">Loja</a></li>
+                <li><a onclick="showView('about')">Sobre</a></li>
+            </ul>
+        </nav>
+        <div class="nav-icons">
+            <i data-lucide="search"></i>
+            <div style="position: relative; cursor:pointer;" onclick="showView('cart')">
+                <i data-lucide="shopping-bag"></i>
+                <span class="cart-count">2</span>
+            </div>
+        </div>
+    </header>
+
+    <main id="home" class="view-section active">
+        
+        <!-- BANNERS SLIDER -->
+        <div class="slider-container">
+            <div class="slider-wrapper" id="sliderWrapper">
+                <!-- Slide 1: Welcome -->
+                <div class="slide slide-1">
+                    <div class="slide-content">
+                        <span style="font-weight: 700; color: var(--primary-orange);">PROMOÇÃO DE ESTREIA</span>
+                        <h1>Seu cantinho de fofura 💿✨</h1>
+                        <p>Use o cupom <b>MEMO10</b> e ganhe 10% de desconto na sua primeira compra.</p>
+                        <button class="btn btn-primary">Ver Novidades</button>
+                    </div>
+                    <div class="slide-img">
+                        <i data-lucide="sparkles" size="180" style="color: var(--primary-orange); opacity: 0.5;"></i>
+                    </div>
+                </div>
+                <!-- Slide 2: K-Pop -->
+                <div class="slide slide-2">
+                    <div class="slide-content">
+                        <span style="font-weight: 700;">K-POP ESSENTIALS</span>
+                        <h1>Proteja seus Photocards!</h1>
+                        <p>Photoholders, binders e sleeves com a estética que você ama.</p>
+                        <button class="btn btn-white">Explorar Coleção</button>
+                    </div>
+                    <div class="slide-img">
+                        <i data-lucide="disc" size="180"></i>
+                    </div>
+                </div>
+                <!-- Slide 3: Geek -->
+                <div class="slide slide-3">
+                    <div class="slide-content">
+                        <span style="font-weight: 700; color: var(--dark-green);">UNIVERSO GEEK</span>
+                        <h1>Figuras e Acessórios</h1>
+                        <p>De animes a heróis, os melhores itens para sua estante estão aqui.</p>
+                        <button class="btn btn-primary">Ver Geek World</button>
+                    </div>
+                    <div class="slide-img">
+                        <i data-lucide="zap" size="180" style="color: var(--primary-orange);"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="slider-btn prev" onclick="moveSlider(-1)"><i data-lucide="chevron-left"></i></button>
+            <button class="slider-btn next" onclick="moveSlider(1)"><i data-lucide="chevron-right"></i></button>
+            
+            <div class="dots" id="dotContainer">
+                <div class="dot active" onclick="jumpToSlide(0)"></div>
+                <div class="dot" onclick="jumpToSlide(1)"></div>
+                <div class="dot" onclick="jumpToSlide(2)"></div>
+            </div>
+        </div>
+
+        <!-- CATEGORIES -->
+        <div class="cat-grid">
+            <div class="cat-item">
+                <div class="cat-icon"><i data-lucide="music"></i></div>
+                <span>K-pop</span>
+            </div>
+            <div class="cat-item">
+                <div class="cat-icon"><i data-lucide="tv"></i></div>
+                <span>Anime</span>
+            </div>
+            <div class="cat-item">
+                <div class="cat-icon"><i data-lucide="shield"></i></div>
+                <span>Heróis</span>
+            </div>
+            <div class="cat-item">
+                <div class="cat-icon"><i data-lucide="gem"></i></div>
+                <span>Acessórios</span>
+            </div>
+            <div class="cat-item">
+                <div class="cat-icon"><i data-lucide="package"></i></div>
+                <span>Utility</span>
+            </div>
+        </div>
+
+        <!-- FEATURED -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <h2>Destaques da Memokki</h2>
+            <button onclick="showView('shop')" style="color: var(--primary-orange); font-weight: 600; background: none;">Ver todos →</button>
+        </div>
+
+        <div class="product-grid">
+            <div class="product-card">
+                <span class="badge">BEST SELLER</span>
+                <div class="product-img"><i data-lucide="heart" style="color: var(--primary-orange)"></i></div>
+                <div class="product-info">
+                    <h3>Photoholder Bunny Pink</h3>
+                    <p class="product-price">R$ 45,90</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img"><i data-lucide="image" style="color: var(--primary-orange)"></i></div>
+                <div class="product-info">
+                    <h3>Action Figure Minimal</h3>
+                    <p class="product-price">R$ 129,00</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img"><i data-lucide="star" style="color: var(--primary-orange)"></i></div>
+                <div class="product-info">
+                    <h3>Chaveiro Acrílico Glow</h3>
+                    <p class="product-price">R$ 22,00</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img"><i data-lucide="smile" style="color: var(--primary-orange)"></i></div>
+                <div class="product-info">
+                    <h3>Caderno Kawaii A5</h3>
+                    <p class="product-price">R$ 35,00</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // SLIDER LOGIC
+        let currentSlide = 0;
+        const wrapper = document.getElementById('sliderWrapper');
+        const dots = document.querySelectorAll('.dot');
+        const totalSlides = document.querySelectorAll('.slide').length;
+
+        function updateSlider() {
+            wrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function moveSlider(direction) {
+            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+            updateSlider();
+        }
+
+        function jumpToSlide(index) {
+            currentSlide = index;
+            updateSlider();
+        }
+
+        // Auto slide every 5 seconds
+        setInterval(() => moveSlider(1), 5000);
+
+        // Simple Single Page Navigation
+        function showView(viewId) {
+            document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
+            const target = document.getElementById(viewId);
+            if(target) target.classList.add('active');
+            window.scrollTo(0,0);
+        }
+    </script>
+</body>
+</html>
