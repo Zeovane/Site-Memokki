@@ -14,11 +14,14 @@
 <body>
   <header class="header">
     <div class="container header-inner">
-      <div class="logo">KPOP</div>
+      <div class="logo">
+        <img src="memokki.jpg" alt="Logo Memokki" class="logo-image" />
+        <span>Memokki</span>
+      </div>
       <nav class="navbar">
         <ul>
           <li><a data-target="home" onclick="showView('home')">Home</a></li>
-          <li><a data-target="shop" onclick="showView('shop')">Loja</a></li>
+          <li><a data-target="shop" onclick="showView('shop')">Kpop</a></li>
           <li><a data-target="photocards" onclick="showView('photocards')">Photocards</a></li>
           <li><a data-target="about" onclick="showView('about')">Sobre</a></li>
         </ul>
@@ -110,7 +113,7 @@
     </div>
 
     <div class="section-head">
-      <h2>Destaques da Kpop</h2>
+      <h2>Destaques da Memokki</h2>
       <button class="section-link" onclick="showView('shop')" type="button">Ver todos →</button>
     </div>
 
@@ -196,23 +199,25 @@
     <div class="section-title">
       <div>
         <h2>Photocards</h2>
-        <p>Escolha seus grupos e encontre os modelos disponiveis.</p>
+        <p>Use categorias e subcategorias para encontrar seus modelos disponiveis.</p>
       </div>
     </div>
     <div class="photocard-layout">
-      <aside class="photocard-filters">
-        <h3>Grupos Atuais</h3>
-        <div class="photo-filter-columns">
-          <div class="photo-filter-group">
-            <h4>Boys Groups</h4>
-            <div id="photoBoysFilters"></div>
-          </div>
-          <div class="photo-filter-group">
-            <h4>Girl Groups</h4>
-            <div id="photoGirlsFilters"></div>
-          </div>
+      <aside class="shop-filters photocard-filters">
+        <h3>Filtros</h3>
+        <div class="filter-menu-shell">
+          <div class="filter-main-menu" id="photoMainFilters"></div>
+          <div class="filter-sub-menu" id="photoSubFilters"></div>
         </div>
-        <button id="clearPhotoFiltersBtn" type="button" class="clear-filters">Limpar grupos</button>
+        <div class="filter-group">
+          <h4>Preço</h4>
+          <div class="price-head">
+            <span>Até</span>
+            <strong id="photoPriceValue">R$ 0,00</strong>
+          </div>
+          <input id="photoPriceRange" type="range" min="0" max="100" step="1" value="100" />
+        </div>
+        <button id="clearPhotoFiltersBtn" type="button" class="clear-filters">Limpar filtros</button>
       </aside>
       <div class="products-grid photocard-grid"></div>
     </div>

@@ -1,8 +1,8 @@
 const INVENTORY_FILE = 'Invent%C3%A1rio%20Memokki%203D.xlsx';
 
 const PHOTO_GROUPS = {
-    boys: ['BTS', 'SEVENTEEN', 'STRAY KIDS', 'ENHYPEN', 'ATEEZ', 'GOT7', 'BOYNEXTDOOR', 'XLOV', 'TXT'],
-    girls: ['TWICE', 'KATSEYE', 'BABYMONSTER', 'HEART2HEART', 'ILLIT', 'BLACKPINK', 'IVE', 'NMIXX']
+    boys: ['BTS', 'SEVENTEEN', 'STRAYKIDS', 'ENHYPEN', 'ATEEZ', 'GOT7', 'BOYNEXTDOOR', 'XLOV', 'TXT', 'HUNTRIX'],
+    girls: ['TWICE', 'KATSEYE', 'BABYMONSTER', 'HEART2HEART', 'ILLIT', 'BLACKPINK', 'IVE', 'NMIXX', 'aespa', 'unchild']
 };
 
 const PHOTOCARD_TEMPLATES = [
@@ -52,6 +52,8 @@ const PDF_CATALOG_PRODUCTS = [
 let products = [];
 let shopMainFilters = [];
 let shopSubMap = {};
+let photoMainFilters = [];
+let photoSubMap = {};
 
 const state = {
     activeView: 'home',
@@ -59,7 +61,9 @@ const state = {
     activeMainFilter: 'Todos',
     selectedSubFilters: [],
     maxPrice: Infinity,
-    selectedPhotoGroups: [],
+    activePhotoMainFilter: 'Todos',
+    selectedPhotoSubFilters: [],
+    maxPhotoPrice: Infinity,
     cart: JSON.parse(localStorage.getItem('kpopCart') || '[]')
 };
 
@@ -73,8 +77,10 @@ const elements = {
     priceRange: document.getElementById('priceRange'),
     priceValue: document.getElementById('priceValue'),
     clearFiltersBtn: document.getElementById('clearFiltersBtn'),
-    photoBoysFilters: document.getElementById('photoBoysFilters'),
-    photoGirlsFilters: document.getElementById('photoGirlsFilters'),
+    photoMainFilters: document.getElementById('photoMainFilters'),
+    photoSubFilters: document.getElementById('photoSubFilters'),
+    photoPriceRange: document.getElementById('photoPriceRange'),
+    photoPriceValue: document.getElementById('photoPriceValue'),
     clearPhotoFiltersBtn: document.getElementById('clearPhotoFiltersBtn'),
     cartCount: document.querySelector('.badge-counter'),
     cartList: document.querySelector('.cart-list'),
@@ -181,7 +187,7 @@ function buildGroupPhotocardProducts() {
             generated.push(enrichProduct({
                 name: `${template.name} - ${group}`,
                 category: 'Photocards',
-                subCategory: template.subCategory,
+                subCategory: group,
                 price: template.price,
                 group,
                 onlyPhotocardTab: true,
@@ -284,6 +290,25 @@ function rebuildFilterStructures() {
 
     const allowedSubs = new Set(shopSubMap[state.activeMainFilter] || []);
     state.selectedSubFilters = state.selectedSubFilters.filter((item) => allowedSubs.has(item));
+
+    const photocardProducts = getPhotocardProducts();
+    photoMainFilters = ['Todos', ...new Set(photocardProducts.map((product) => product.category))];
+    if (!photoMainFilters.includes(state.activePhotoMainFilter)) {
+        state.activePhotoMainFilter = 'Todos';
+    }
+
+    photoSubMap = {};
+    photoMainFilters.forEach((mainFilter) => {
+        const subSet = new Set();
+        photocardProducts.forEach((product) => {
+            const fitsMain = mainFilter === 'Todos' || product.category === mainFilter;
+            if (fitsMain) subSet.add(product.subCategory);
+        });
+        photoSubMap[mainFilter] = [...subSet];
+    });
+
+    const allowedPhotoSubs = new Set(photoSubMap[state.activePhotoMainFilter] || []);
+    state.selectedPhotoSubFilters = state.selectedPhotoSubFilters.filter((item) => allowedPhotoSubs.has(item));
 }
 
 function filterShopProducts() {
@@ -299,10 +324,12 @@ function filterShopProducts() {
 
 function filterPhotocardProducts() {
     return getPhotocardProducts().filter((product) => {
-        const groupMatch = state.selectedPhotoGroups.length === 0 || state.selectedPhotoGroups.includes(product.group);
+        const mainMatch = state.activePhotoMainFilter === 'Todos' || product.category === state.activePhotoMainFilter;
+        const subMatch = state.selectedPhotoSubFilters.length === 0 || state.selectedPhotoSubFilters.includes(product.subCategory);
+        const priceMatch = product.price <= state.maxPhotoPrice;
         const query = state.searchTerm.toLowerCase();
         const searchMatch = product.name.toLowerCase().includes(query) || product.description.toLowerCase().includes(query);
-        return groupMatch && searchMatch;
+        return mainMatch && subMatch && priceMatch && searchMatch;
     });
 }
 
@@ -413,33 +440,78 @@ function setupPriceFilter() {
     };
 }
 
-function renderPhotoGroupList(container, groups) {
-    if (!container) return;
-    container.innerHTML = groups.map((group) => {
-        const checked = state.selectedPhotoGroups.includes(group) ? 'checked' : '';
+function renderPhotoMainFilters() {
+    if (!elements.photoMainFilters) return;
+    elements.photoMainFilters.innerHTML = photoMainFilters.map((mainFilter) => {
+        const activeClass = mainFilter === state.activePhotoMainFilter ? 'active' : '';
         return `
-            <label class="filter-checkbox">
-                <input type="checkbox" value="${group}" ${checked} />
-                <span>${group}</span>
-            </label>
+            <button class="filter-menu-item ${activeClass}" type="button" data-photo-main="${mainFilter}">
+                <span>${mainFilter}</span>
+                <i data-lucide="chevron-right" size="16"></i>
+            </button>
         `;
     }).join('');
 
-    container.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
-        checkbox.addEventListener('change', () => {
-            const allChecked = [
-                ...Array.from(elements.photoBoysFilters ? elements.photoBoysFilters.querySelectorAll('input[type="checkbox"]:checked') : []),
-                ...Array.from(elements.photoGirlsFilters ? elements.photoGirlsFilters.querySelectorAll('input[type="checkbox"]:checked') : [])
-            ].map((input) => input.value);
-            state.selectedPhotoGroups = allChecked;
+    elements.photoMainFilters.querySelectorAll('.filter-menu-item').forEach((button) => {
+        button.addEventListener('click', () => {
+            state.activePhotoMainFilter = button.dataset.photoMain || 'Todos';
+            state.selectedPhotoSubFilters = [];
+            renderPhotoMainFilters();
+            renderPhotoSubFilters();
             renderPhotocardProducts();
         });
     });
 }
 
-function renderPhotocardGroupFilters() {
-    renderPhotoGroupList(elements.photoBoysFilters, PHOTO_GROUPS.boys);
-    renderPhotoGroupList(elements.photoGirlsFilters, PHOTO_GROUPS.girls);
+function renderPhotoSubFilters() {
+    if (!elements.photoSubFilters) return;
+    const subItems = photoSubMap[state.activePhotoMainFilter] || [];
+    if (subItems.length === 0) {
+        elements.photoSubFilters.innerHTML = '<p class="filter-sub-title">Sem subfiltros disponiveis.</p>';
+        return;
+    }
+
+    elements.photoSubFilters.innerHTML = `
+        <p class="filter-sub-title">Subcategoria</p>
+        ${subItems.map((sub) => {
+            const checked = state.selectedPhotoSubFilters.includes(sub) ? 'checked' : '';
+            return `
+                <label class="filter-checkbox">
+                    <input type="checkbox" value="${sub}" ${checked} />
+                    <span>${sub}</span>
+                </label>
+            `;
+        }).join('')}
+    `;
+
+    elements.photoSubFilters.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
+        checkbox.addEventListener('change', () => {
+            const selected = Array.from(elements.photoSubFilters.querySelectorAll('input[type="checkbox"]:checked'))
+                .map((input) => input.value);
+            state.selectedPhotoSubFilters = selected;
+            renderPhotocardProducts();
+        });
+    });
+}
+
+function setupPhotoPriceFilter() {
+    if (!elements.photoPriceRange || !elements.photoPriceValue) return;
+    const maxProductPrice = Math.max(...getPhotocardProducts().map((product) => product.price), 0);
+    const roundedMax = Math.ceil(maxProductPrice);
+
+    elements.photoPriceRange.min = '0';
+    elements.photoPriceRange.max = String(roundedMax);
+    if (!Number.isFinite(state.maxPhotoPrice) || state.maxPhotoPrice > roundedMax) {
+        state.maxPhotoPrice = roundedMax;
+    }
+    elements.photoPriceRange.value = String(state.maxPhotoPrice);
+    elements.photoPriceValue.textContent = formatCurrency(state.maxPhotoPrice);
+
+    elements.photoPriceRange.oninput = () => {
+        state.maxPhotoPrice = Number(elements.photoPriceRange.value);
+        elements.photoPriceValue.textContent = formatCurrency(state.maxPhotoPrice);
+        renderPhotocardProducts();
+    };
 }
 
 function clearShopFilters() {
@@ -453,8 +525,12 @@ function clearShopFilters() {
 }
 
 function clearPhotocardFilters() {
-    state.selectedPhotoGroups = [];
-    renderPhotocardGroupFilters();
+    state.activePhotoMainFilter = 'Todos';
+    state.selectedPhotoSubFilters = [];
+    state.maxPhotoPrice = Math.ceil(Math.max(...getPhotocardProducts().map((product) => product.price), 0));
+    renderPhotoMainFilters();
+    renderPhotoSubFilters();
+    setupPhotoPriceFilter();
     renderPhotocardProducts();
 }
 
@@ -590,7 +666,9 @@ function renderAll() {
     renderShopSubFilters();
     setupPriceFilter();
     renderShopProducts();
-    renderPhotocardGroupFilters();
+    renderPhotoMainFilters();
+    renderPhotoSubFilters();
+    setupPhotoPriceFilter();
     renderPhotocardProducts();
     renderCart();
     updateCartCount();
