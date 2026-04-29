@@ -1,0 +1,100 @@
+[debug] [2026-04-29T13:33:22.988Z] ----------------------------------------------------------------------
+[debug] [2026-04-29T13:33:22.992Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\giovanni.gioia\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting --project site-memokki
+[debug] [2026-04-29T13:33:22.992Z] CLI Version:   15.15.0
+[debug] [2026-04-29T13:33:22.992Z] Platform:      win32
+[debug] [2026-04-29T13:33:22.992Z] Node Version:  v24.14.1
+[debug] [2026-04-29T13:33:22.993Z] Time:          Wed Apr 29 2026 10:33:22 GMT-0300 (Horário Padrão de Brasília)
+[debug] [2026-04-29T13:33:22.993Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-04-29T13:33:25.889Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-04-29T13:33:25.890Z] > authorizing via signed-in user (carrozzino201@gmail.com)
+[debug] [2026-04-29T13:33:25.891Z] [iam] checking project site-memokki for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-04-29T13:33:25.893Z] Checked if tokens are valid: true, expires at: 1777472601427
+[debug] [2026-04-29T13:33:25.893Z] Checked if tokens are valid: true, expires at: 1777472601427
+[debug] [2026-04-29T13:33:25.895Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/site-memokki:testIamPermissions [none]
+[debug] [2026-04-29T13:33:25.896Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/site-memokki:testIamPermissions  x-goog-user-project=site-memokki
+[debug] [2026-04-29T13:33:25.896Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/site-memokki:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-04-29T13:33:26.783Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/site-memokki:testIamPermissions 200
+[debug] [2026-04-29T13:33:26.784Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/site-memokki:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-04-29T13:33:26.785Z] Checked if tokens are valid: true, expires at: 1777472601427
+[debug] [2026-04-29T13:33:26.785Z] Checked if tokens are valid: true, expires at: 1777472601427
+[debug] [2026-04-29T13:33:26.786Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/site-memokki [none]
+[debug] [2026-04-29T13:33:27.196Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/site-memokki 200
+[debug] [2026-04-29T13:33:27.197Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/site-memokki {"projectId":"site-memokki","projectNumber":"143091616471","displayName":"Site-Memokki","name":"projects/site-memokki","resources":{"hostingSite":"site-memokki"},"state":"ACTIVE","etag":"1_897cd661-f46b-41cd-aeb8-117b3b1c7c06"}
+[info] 
+[info] === Deploying to 'site-memokki'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2026-04-29T13:33:27.208Z] Checked if tokens are valid: true, expires at: 1777472601427
+[debug] [2026-04-29T13:33:27.209Z] Checked if tokens are valid: true, expires at: 1777472601427
+[debug] [2026-04-29T13:33:27.209Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/site-memokki/versions [none]
+[debug] [2026-04-29T13:33:27.210Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/site-memokki/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2026-04-29T13:33:28.926Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/site-memokki/versions 200
+[debug] [2026-04-29T13:33:28.926Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/site-memokki/versions {"name":"projects/143091616471/sites/site-memokki/versions/7012972e65a02a3e","status":"CREATED","config":{},"labels":{"deployment-tool":"cli-firebase"}}
+[info] i  hosting[site-memokki]: beginning deploy... 
+[info] i  hosting[site-memokki]: found 9 files in . 
+[debug] [2026-04-29T13:33:28.953Z] [hosting] uploading with 200 concurrency
+[debug] [2026-04-29T13:33:28.964Z] Checked if tokens are valid: true, expires at: 1777472601427
+[debug] [2026-04-29T13:33:28.965Z] Checked if tokens are valid: true, expires at: 1777472601427
+[debug] [2026-04-29T13:33:28.969Z] [hosting] hash cache [] stored for 9 files
+[debug] [2026-04-29T13:33:28.970Z] [hosting][hash queue][FINAL] {"max":7,"min":1,"avg":1.6666666666666667,"active":0,"complete":9,"success":9,"errored":0,"retried":0,"total":9,"elapsed":15}
+[debug] [2026-04-29T13:33:28.974Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/143091616471/sites/site-memokki/versions/7012972e65a02a3e:populateFiles [none]
+[debug] [2026-04-29T13:33:28.974Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/143091616471/sites/site-memokki/versions/7012972e65a02a3e:populateFiles {"files":{"/styles.css":"c6887dd56e72453168471f3dd646bbae02313c0b37b13105437435bf8b7bfd7c","/script.js":"48597f9bc1702f1c12ed6070ad093ba4396380f4c44edcbbe796bc3c53fa858a","/memokki.jpg":"93c1a2eb27ec7da12bb02317ccc8d9e24b97227ea1b62378443456e06b77fb71","/Inventário Memokki 3D.xlsx":"95c2d4c7ef5eb3b5e7f15b66fc0a1de47c651ac248574d43d026a517a406dd3b","/firebase-init.js":"4ce59ed12474a111ad0d8e56b104e56d1002f60307a58622d70e8c4c06ef1e3b","/firebase-config.js":"f2d48fa2dafc8a9756090ba9b697b4c61b06a0fa9976f867a253dcdccdfa9147","/catálogo.pdf":"c135b7d13babe773c133116c9f4219a1612eb419fbfc16b281929e57dd5c1f8e","/auth.js":"cd1dfe1bfeb6f35ea20bd9214bcc3b25cabf14867d93b4578ef7e551b9a3badf","/index.html":"532c31abc60cfcc94e94ba2bb4a6a6dce609e09048065973d7a9eeee64521be4"}}
+[debug] [2026-04-29T13:33:29.593Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/143091616471/sites/site-memokki/versions/7012972e65a02a3e:populateFiles 200
+[debug] [2026-04-29T13:33:29.594Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/143091616471/sites/site-memokki/versions/7012972e65a02a3e:populateFiles {"uploadRequiredHashes":["532c31abc60cfcc94e94ba2bb4a6a6dce609e09048065973d7a9eeee64521be4"],"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/site-memokki/versions/7012972e65a02a3e/files"}
+[debug] [2026-04-29T13:33:29.595Z] Checked if tokens are valid: true, expires at: 1777472601427
+[debug] [2026-04-29T13:33:29.595Z] Checked if tokens are valid: true, expires at: 1777472601427
+[debug] [2026-04-29T13:33:29.596Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/site-memokki/versions/7012972e65a02a3e/files/532c31abc60cfcc94e94ba2bb4a6a6dce609e09048065973d7a9eeee64521be4 [none]
+[debug] [2026-04-29T13:33:29.596Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/site-memokki/versions/7012972e65a02a3e/files/532c31abc60cfcc94e94ba2bb4a6a6dce609e09048065973d7a9eeee64521be4 [stream]
+[debug] [2026-04-29T13:33:29.599Z] [hosting][populate queue][FINAL] {"max":632,"min":632,"avg":632,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":635}
+[debug] [2026-04-29T13:33:29.600Z] [hosting] uploads queued: 1
+[info] i  hosting: uploading new files [0/1] (0%) 
+[debug] [2026-04-29T13:33:30.968Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/site-memokki/versions/7012972e65a02a3e/files/532c31abc60cfcc94e94ba2bb4a6a6dce609e09048065973d7a9eeee64521be4 200
+[debug] [2026-04-29T13:33:30.968Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/site-memokki/versions/7012972e65a02a3e/files/532c31abc60cfcc94e94ba2bb4a6a6dce609e09048065973d7a9eeee64521be4 [stream]
+[debug] [2026-04-29T13:33:30.969Z] [hosting][upload queue][FINAL] {"max":1375,"min":1375,"avg":1375,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":1375}
+[info] i  hosting: upload complete 
+[info] +  hosting[site-memokki]: file upload complete 
+[debug] [2026-04-29T13:33:30.971Z] [hosting] deploy completed after 2041ms
+[debug] [2026-04-29T13:33:30.972Z] [
+  {
+    "config": {
+      "public": ".",
+      "ignore": [
+        "firebase.json",
+        ".firebaserc",
+        ".git/**",
+        "firebase-debug.log",
+        "**/.*",
+        "**/node_modules/**",
+        "package.json",
+        "package-lock.json",
+        "README.md"
+      ],
+      "site": "site-memokki"
+    },
+    "version": "projects/143091616471/sites/site-memokki/versions/7012972e65a02a3e"
+  }
+]
+[info] i  hosting[site-memokki]: finalizing version... 
+[debug] [2026-04-29T13:33:30.974Z] Checked if tokens are valid: true, expires at: 1777472601427
+[debug] [2026-04-29T13:33:30.975Z] Checked if tokens are valid: true, expires at: 1777472601427
+[debug] [2026-04-29T13:33:30.975Z] >>> [apiv2][query] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/site-memokki/versions/7012972e65a02a3e updateMask=status%2Cconfig
+[debug] [2026-04-29T13:33:30.975Z] >>> [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/site-memokki/versions/7012972e65a02a3e {"status":"FINALIZED","config":{}}
+[debug] [2026-04-29T13:33:32.111Z] <<< [apiv2][status] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/site-memokki/versions/7012972e65a02a3e 200
+[debug] [2026-04-29T13:33:32.112Z] <<< [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/site-memokki/versions/7012972e65a02a3e {"name":"projects/143091616471/sites/site-memokki/versions/7012972e65a02a3e","status":"FINALIZED","config":{},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2026-04-29T13:33:28.268374Z","createUser":{"email":"carrozzino201@gmail.com"},"finalizeTime":"2026-04-29T13:33:31.901736Z","finalizeUser":{"email":"carrozzino201@gmail.com"}}
+[debug] [2026-04-29T13:33:32.112Z] [hosting] finalized version for site-memokki:[object Object]
+[info] +  hosting[site-memokki]: version finalized 
+[info] i  hosting[site-memokki]: releasing new version... 
+[debug] [2026-04-29T13:33:32.113Z] Checked if tokens are valid: true, expires at: 1777472601427
+[debug] [2026-04-29T13:33:32.113Z] Checked if tokens are valid: true, expires at: 1777472601427
+[debug] [2026-04-29T13:33:32.113Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/site-memokki/channels/live/releases versionName=projects%2F143091616471%2Fsites%2Fsite-memokki%2Fversions%2F7012972e65a02a3e
+[debug] [2026-04-29T13:33:32.114Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/site-memokki/channels/live/releases {}
+[debug] [2026-04-29T13:33:33.061Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/site-memokki/channels/live/releases 200
+[debug] [2026-04-29T13:33:33.062Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/site-memokki/channels/live/releases {"name":"projects/143091616471/sites/site-memokki/channels/live/releases/1777469612191000","version":{"name":"projects/143091616471/sites/site-memokki/versions/7012972e65a02a3e","status":"FINALIZED","config":{},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2026-04-29T13:33:28.268374Z","createUser":{"email":"carrozzino201@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKa756Z0Zzv8YYcdEPu91ECdvy-wZbWV4Plw5E2gMRQsywIIB0J"},"finalizeTime":"2026-04-29T13:33:31.901736Z","finalizeUser":{"email":"carrozzino201@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKa756Z0Zzv8YYcdEPu91ECdvy-wZbWV4Plw5E2gMRQsywIIB0J"}},"type":"DEPLOY","releaseTime":"2026-04-29T13:33:32.191Z","releaseUser":{"email":"carrozzino201@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKa756Z0Zzv8YYcdEPu91ECdvy-wZbWV4Plw5E2gMRQsywIIB0J"}}
+[debug] [2026-04-29T13:33:33.062Z] [hosting] release: {"name":"projects/143091616471/sites/site-memokki/channels/live/releases/1777469612191000","version":{"name":"projects/143091616471/sites/site-memokki/versions/7012972e65a02a3e","status":"FINALIZED","config":{},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2026-04-29T13:33:28.268374Z","createUser":{"email":"carrozzino201@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKa756Z0Zzv8YYcdEPu91ECdvy-wZbWV4Plw5E2gMRQsywIIB0J"},"finalizeTime":"2026-04-29T13:33:31.901736Z","finalizeUser":{"email":"carrozzino201@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKa756Z0Zzv8YYcdEPu91ECdvy-wZbWV4Plw5E2gMRQsywIIB0J"}},"type":"DEPLOY","releaseTime":"2026-04-29T13:33:32.191Z","releaseUser":{"email":"carrozzino201@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKa756Z0Zzv8YYcdEPu91ECdvy-wZbWV4Plw5E2gMRQsywIIB0J"}}
+[info] +  hosting[site-memokki]: release complete 
+[info] 
+[info] +  Deploy complete! 
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/site-memokki/overview
+[info] Hosting URL: https://site-memokki.web.app

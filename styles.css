@@ -149,6 +149,22 @@ button, .btn {
     display: flex;
     align-items: center;
     gap: 1rem;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.account-dropdown-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+}
+
+.account-dropdown-portal {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 60;
 }
 
 .icon-button {
@@ -791,6 +807,209 @@ button, .btn {
     box-shadow: var(--shadow);
 }
 
+.about-content {
+    background: white;
+    border-radius: 28px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    line-height: 1.8;
+}
+
+.account-shortcut {
+    min-height: 44px;
+    padding: 0.65rem 1rem;
+    border-radius: 999px;
+    background: white;
+    color: var(--secondary);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    box-shadow: 0 10px 30px rgba(63, 85, 80, 0.08);
+    transition: transform var(--transition), background var(--transition), color var(--transition);
+}
+
+.account-shortcut:hover {
+    transform: translateY(-2px);
+    background: var(--primary);
+    color: white;
+}
+
+.account-shortcut.is-authenticated {
+    background: #edf7ea;
+    color: #42683d;
+}
+
+.account-dropdown {
+    position: fixed;
+    top: 84px;
+    right: 24px;
+    width: 340px;
+    max-width: calc(100vw - 2rem);
+    padding: 1rem;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(63, 85, 80, 0.08);
+    display: none;
+    grid-template-columns: 1fr;
+    pointer-events: auto;
+    z-index: 30;
+}
+
+.account-dropdown.active {
+    display: grid;
+}
+
+.auth-state-badge {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 0.85rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    background: #f1ece6;
+    color: #73675d;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.auth-state-badge.is-authenticated {
+    background: #e7f4e2;
+    color: #42683d;
+}
+
+.account-dropdown-head {
+    display: grid;
+    gap: 0.2rem;
+    padding-bottom: 0.9rem;
+    margin-bottom: 0.9rem;
+    border-bottom: 1px solid rgba(63, 85, 80, 0.08);
+}
+
+.account-dropdown-head strong {
+    display: block;
+    font-size: 1rem;
+}
+
+.account-dropdown-head span {
+    display: block;
+    color: #66716d;
+    font-size: 0.92rem;
+    line-height: 1.45;
+}
+
+.account-create-shell {
+    display: flex;
+    justify-content: center;
+}
+
+.account-panel {
+    background: white;
+    border-radius: 28px;
+    padding: 1.6rem;
+    box-shadow: var(--shadow);
+}
+
+.account-panel h3 {
+    font-size: 1.35rem;
+    margin-bottom: 0.75rem;
+}
+
+.account-panel-create {
+    width: min(520px, 100%);
+}
+
+.account-helper {
+    color: #66716d;
+    margin-bottom: 1.1rem;
+}
+
+.account-dropdown-actions {
+    display: flex;
+    gap: 0.7rem;
+    margin-top: 0.8rem;
+}
+
+.account-dropdown.is-authenticated .auth-form,
+.account-dropdown.is-authenticated .auth-google-btn {
+    display: none;
+}
+
+.auth-form {
+    display: grid;
+    gap: 0.9rem;
+}
+
+.auth-form-compact {
+    gap: 0.7rem;
+    width: 100%;
+}
+
+.auth-field {
+    display: grid;
+    gap: 0.45rem;
+    color: var(--secondary);
+    font-weight: 600;
+}
+
+.auth-field input {
+    width: 100%;
+    border: 1px solid #e7ddd4;
+    border-radius: 16px;
+    background: #fffaf6;
+    padding: 0.95rem 1rem;
+    color: var(--secondary);
+}
+
+.auth-field input:focus {
+    outline: 2px solid rgba(243, 143, 42, 0.18);
+    border-color: var(--primary);
+}
+
+.auth-form-compact .auth-field span {
+    font-size: 0.88rem;
+}
+
+.auth-form-compact .auth-field input {
+    padding: 0.8rem 0.95rem;
+    border-radius: 14px;
+}
+
+.auth-submit,
+.auth-google-btn,
+.auth-logout-btn {
+    width: 100%;
+}
+
+.account-create-link {
+    margin-top: 0.75rem;
+    background: none;
+    color: var(--primary);
+    font-weight: 700;
+    text-align: left;
+    justify-self: start;
+}
+
+.auth-feedback {
+    min-height: 1.4rem;
+    margin-top: 0.75rem;
+    font-weight: 600;
+    font-size: 0.92rem;
+}
+
+.auth-feedback[data-type="error"] {
+    color: #c24545;
+}
+
+.auth-feedback[data-type="success"] {
+    color: #48783c;
+}
+
+.auth-feedback[data-type="info"] {
+    color: #566965;
+}
+
 .footer {
     width: 100%;
     margin-top: 3rem;
@@ -918,6 +1137,7 @@ button, .btn {
     .photocard-layout {
         grid-template-columns: 1fr;
     }
+
 }
 
 @media (max-width: 720px) {
@@ -971,5 +1191,22 @@ button, .btn {
     .footer-inner {
         grid-template-columns: 1fr;
         gap: 2.2rem;
+    }
+
+    .header-actions {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .account-shortcut {
+        justify-content: center;
+    }
+
+    .account-dropdown {
+        top: 76px;
+        right: 0.75rem;
+        transform: none;
+        width: min(340px, calc(100vw - 1.5rem));
     }
 }

@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Kpop - loja online de colecionaveis com catalogo, filtros e carrinho de compras em HTML/CSS/JS." />
-  <title>Kpop | Seu cantinho de colecionaveis</title>
+  <title>Memokki | Seu cantinho de colecionaveis</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet" />
@@ -34,6 +34,12 @@
           <form id="searchForm" class="searchbar" autocomplete="off">
             <input id="searchInput" type="search" placeholder="Buscar produtos..." />
           </form>
+        </div>
+        <div class="account-dropdown-wrap">
+          <button type="button" class="account-shortcut" id="accountDropdownToggle">
+            <i data-lucide="user-round"></i>
+            <span id="authShortcutLabel">Entrar</span>
+          </button>
         </div>
         <div style="position: relative; cursor:pointer;" onclick="showView('cart')">
           <i data-lucide="shopping-bag"></i>
@@ -226,16 +232,42 @@
   <section id="about" class="page-section">
     <div class="section-title">
       <div>
-        <h2>Sobre a Kpop</h2>
+        <h2>Sobre a Memokki</h2>
         <p>Somos um espaço feito para fãs de cultura pop que querem colecionar com charme.</p>
       </div>
     </div>
     <div class="about-content">
       <p>
-        Na Kpop você encontra produtos pensados para criadores de ambiente e colecionadores.
+        Na Memokki você encontra produtos pensados para criadores de ambiente e colecionadores.
         Aqui a experiência é leve e intuitiva, com itens selecionados para dar mais vida à sua
         estante, seu quarto e sua rotina.
       </p>
+    </div>
+  </section>
+
+  <section id="account" class="page-section">
+    <div class="section-title">
+      <div>
+        <h2>Criar conta</h2>
+        <p>Cadastre seu acesso para depois entrar rapidamente pelo menu da conta.</p>
+      </div>
+    </div>
+    <div class="account-create-shell">
+      <article class="account-panel account-panel-create">
+        <h3>Seu cadastro Memokki</h3>
+        <p class="account-helper">Depois de criar a conta, o login fica disponivel no dropdown do topo.</p>
+        <form id="signupForm" class="auth-form">
+          <label class="auth-field">
+            <span>E-mail</span>
+            <input id="signupEmail" name="signupEmail" type="email" placeholder="voce@exemplo.com" required />
+          </label>
+          <label class="auth-field">
+            <span>Senha</span>
+            <input id="signupPassword" name="signupPassword" type="password" placeholder="Minimo de 6 caracteres" minlength="6" required />
+          </label>
+          <button type="submit" class="btn btn-primary">Criar conta</button>
+        </form>
+      </article>
     </div>
   </section>
 
@@ -281,7 +313,37 @@
     </div>
   </footer>
 
+  <div class="account-dropdown-portal" id="accountDropdownPortal">
+    <div class="account-dropdown" id="accountDropdown">
+      <div id="authStateBadge" class="auth-state-badge">Desconectado</div>
+      <div class="account-dropdown-head">
+        <strong id="authUserName">Nenhum usuario conectado</strong>
+        <span id="authUserEmail">Entre com sua conta</span>
+      </div>
+      <form id="loginForm" class="auth-form auth-form-compact">
+        <label class="auth-field">
+          <span>E-mail</span>
+          <input id="loginEmail" name="loginEmail" type="email" placeholder="voce@exemplo.com" required />
+        </label>
+        <label class="auth-field">
+          <span>Senha</span>
+          <input id="loginPassword" name="loginPassword" type="password" placeholder="Sua senha" required />
+        </label>
+        <button type="submit" class="btn btn-primary auth-submit">Entrar</button>
+      </form>
+      <div class="account-dropdown-actions">
+        <button id="googleLoginBtn" type="button" class="btn btn-white auth-google-btn">Google</button>
+        <button id="logoutBtn" type="button" class="btn btn-secondary auth-logout-btn">Sair</button>
+      </div>
+      <button type="button" class="account-create-link" onclick="showView('account')">Criar conta</button>
+      <p id="authFeedback" class="auth-feedback" aria-live="polite"></p>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="firebase-config.js?v=20260429-3"></script>
+  <script type="module" src="firebase-init.js?v=20260429-3"></script>
   <script src="script.js"></script>
+  <script type="module" src="auth.js?v=20260429-3"></script>
 </body>
 </html>

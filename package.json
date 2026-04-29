@@ -8,6 +8,9 @@
     "start": "live-server --port=3000 --open=./index.html"
   },
   "devDependencies": {
-    "live-server": "^1.2.2"
+    "live-server": "^1.2.0"
+  },
+  "dependencies": {
+    "firebase": "^12.12.1"
   }
 }
