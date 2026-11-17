@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Kpop - loja online de colecionaveis com catalogo, filtros e carrinho de compras em HTML/CSS/JS." />
-  <title>Memokki | Seu cantinho de colecionaveis</title>
+  <meta name="description" content="Memokki - photocards, photoholders e acessórios de K-pop feitos sob encomenda." />
+  <title>Memokki | Photocards e acessórios K-pop</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Karla:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/lucide@0.460.0"></script>
 </head>
 <body>
   <header class="header">
@@ -41,91 +41,47 @@
             <span id="authShortcutLabel">Entrar</span>
           </button>
         </div>
-        <div style="position: relative; cursor:pointer;" onclick="showView('cart')">
+        <button type="button" class="cart-button" onclick="showView('cart')" aria-label="Abrir carrinho">
           <i data-lucide="shopping-bag"></i>
           <span class="badge-counter">0</span>
-        </div>
+        </button>
       </div>
     </div>
   </header>
 
   <main id="home" class="page-section active">
-    <div class="slider-container">
-      <div class="slider-wrapper" id="sliderWrapper">
-        <div class="slide slide-1">
-          <div class="slide-content">
-            <span style="font-weight: 700; color: var(--primary);">PROMOÇÃO DE ESTREIA</span>
-            <h1>Seu cantinho de fofura 💿✨</h1>
-            <p>Use o cupom <strong>MEMO10</strong> e ganhe 10% de desconto na sua primeira compra.</p>
-            <button class="btn btn-primary" type="button" onclick="showView('shop')">Ver Novidades</button>
-          </div>
-          <div class="slide-img">
-            <i data-lucide="sparkles" size="180" style="color: var(--primary); opacity: 0.5;"></i>
-          </div>
-        </div>
-        <div class="slide slide-2">
-          <div class="slide-content">
-            <span style="font-weight: 700;">K-POP ESSENTIALS</span>
-            <h1>Proteja seus Photocards!</h1>
-            <p>Photoholders, binders e sleeves com a estética que você ama.</p>
-            <button class="btn btn-white" type="button" onclick="showView('shop')">Explorar Coleção</button>
-          </div>
-          <div class="slide-img">
-            <i data-lucide="disc" size="180"></i>
-          </div>
-        </div>
-        <div class="slide slide-3">
-          <div class="slide-content">
-            <span style="font-weight: 700; color: var(--secondary);">UNIVERSO GEEK</span>
-            <h1>Figuras e Acessórios</h1>
-            <p>De animes a heróis, os melhores itens para sua estante estão aqui.</p>
-            <button class="btn btn-primary" type="button" onclick="showView('shop')">Ver Geek World</button>
-          </div>
-          <div class="slide-img">
-            <i data-lucide="zap" size="180" style="color: var(--primary);"></i>
-          </div>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="hero-kicker">Photocards, photoholders e mimos de fandom</p>
+        <h1>Feito sob encomenda pra sua coleção.</h1>
+        <p class="hero-text">Imprimimos seus photocards, montamos photoholders e chaveiros com a foto que você mandar. Primeira compra tem 10% off com o cupom <strong>MEMO10</strong>.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" type="button" onclick="showView('photocards')">Ver photocards</button>
+          <button class="btn btn-ghost" type="button" onclick="showView('shop')">Todos os produtos</button>
         </div>
       </div>
-      <button class="slider-btn prev" onclick="moveSlider(-1)"><i data-lucide="chevron-left"></i></button>
-      <button class="slider-btn next" onclick="moveSlider(1)"><i data-lucide="chevron-right"></i></button>
-      <div class="dots" id="dotContainer">
-        <div class="dot active" onclick="jumpToSlide(0)"></div>
-        <div class="dot" onclick="jumpToSlide(1)"></div>
-        <div class="dot" onclick="jumpToSlide(2)"></div>
-      </div>
-    </div>
+      <figure class="hero-media">
+        <img src="memokki.jpg" alt="Produtos Memokki" />
+      </figure>
+    </section>
 
-    <div class="cat-grid">
-      <div class="cat-item">
-        <div class="cat-icon"><i data-lucide="music"></i></div>
-        <span>K-pop</span>
-      </div>
-      <div class="cat-item">
-        <div class="cat-icon"><i data-lucide="tv"></i></div>
-        <span>Anime</span>
-      </div>
-      <div class="cat-item">
-        <div class="cat-icon"><i data-lucide="shield"></i></div>
-        <span>Heróis</span>
-      </div>
-      <div class="cat-item">
-        <div class="cat-icon"><i data-lucide="gem"></i></div>
-        <span>Acessórios</span>
-      </div>
-      <div class="cat-item">
-        <div class="cat-icon"><i data-lucide="package"></i></div>
-        <span>Utility</span>
-      </div>
-    </div>
+    <nav class="cat-strip" aria-label="Categorias">
+      <button type="button" onclick="showView('photocards')">Photocards</button>
+      <button type="button" onclick="showView('shop')">Photoholders</button>
+      <button type="button" onclick="showView('shop')">Chaveiros</button>
+      <button type="button" onclick="showView('shop')">Adesivos</button>
+      <button type="button" onclick="showView('shop')">BT21</button>
+      <button type="button" onclick="showView('shop')">Personalizados</button>
+    </nav>
 
     <div class="section-head">
-      <h2>Destaques da Memokki</h2>
-      <button class="section-link" onclick="showView('shop')" type="button">Ver todos →</button>
+      <h2>Mais pedidos</h2>
+      <button class="section-link" onclick="showView('shop')" type="button">Ver tudo</button>
     </div>
 
     <div class="product-grid">
       <article class="product-card product-card-compact">
-        <span class="product-tag hot">HOT</span>
+        <span class="product-tag hot">Mais vendido</span>
         <button class="wish-btn" type="button" aria-label="Favoritar produto">
           <i data-lucide="heart"></i>
         </button>
@@ -137,7 +93,7 @@
         </button>
       </article>
       <article class="product-card product-card-compact">
-        <span class="product-tag new">NOVO</span>
+        <span class="product-tag new">Novo</span>
         <button class="wish-btn" type="button" aria-label="Favoritar produto">
           <i data-lucide="heart"></i>
         </button>
@@ -177,7 +133,7 @@
     <div class="section-title">
       <div>
         <h2>Loja Kpop</h2>
-        <p>Explore as categorias e encontre seus itens favoritos.</p>
+        <p>Photoholders, chaveiros, adesivos e itens personalizados.</p>
       </div>
     </div>
     <div class="shop-layout">
@@ -205,7 +161,7 @@
     <div class="section-title">
       <div>
         <h2>Photocards</h2>
-        <p>Use categorias e subcategorias para encontrar seus modelos disponiveis.</p>
+        <p>Escolha o grupo e o tipo de impressão.</p>
       </div>
     </div>
     <div class="photocard-layout">
@@ -233,14 +189,13 @@
     <div class="section-title">
       <div>
         <h2>Sobre a Memokki</h2>
-        <p>Somos um espaço feito para fãs de cultura pop que querem colecionar com charme.</p>
+        <p>Uma lojinha pequena, feita por fã pra fã.</p>
       </div>
     </div>
     <div class="about-content">
       <p>
-        Na Memokki você encontra produtos pensados para criadores de ambiente e colecionadores.
-        Aqui a experiência é leve e intuitiva, com itens selecionados para dar mais vida à sua
-        estante, seu quarto e sua rotina.
+        A Memokki começou imprimindo photocards para amigos e virou loja. Todo pedido é produzido
+        aqui, um por um: você escolhe o grupo ou manda a sua foto, e a gente imprime, corta e embala.
       </p>
     </div>
   </section>
@@ -249,13 +204,13 @@
     <div class="section-title">
       <div>
         <h2>Criar conta</h2>
-        <p>Cadastre seu acesso para depois entrar rapidamente pelo menu da conta.</p>
+        <p>Com conta você acompanha pedidos e salva endereços.</p>
       </div>
     </div>
     <div class="account-create-shell">
       <article class="account-panel account-panel-create">
         <h3>Seu cadastro Memokki</h3>
-        <p class="account-helper">Depois de criar a conta, o login fica disponivel no dropdown do topo.</p>
+        <p class="account-helper">Depois de criar, é só entrar pelo botão “Entrar” no topo.</p>
         <form id="signupForm" class="auth-form">
           <label class="auth-field">
             <span>E-mail</span>
@@ -263,7 +218,7 @@
           </label>
           <label class="auth-field">
             <span>Senha</span>
-            <input id="signupPassword" name="signupPassword" type="password" placeholder="Minimo de 6 caracteres" minlength="6" required />
+            <input id="signupPassword" name="signupPassword" type="password" placeholder="Mínimo de 6 caracteres" minlength="6" required />
           </label>
           <button type="submit" class="btn btn-primary">Criar conta</button>
         </form>
@@ -271,43 +226,177 @@
     </div>
   </section>
 
+  <section id="product" class="page-section">
+    <button type="button" class="back-link" onclick="goBack()">&larr; Voltar</button>
+    <div id="productDetail"></div>
+  </section>
+
   <section id="cart" class="page-section">
     <div class="section-title">
       <div>
         <h2>Seu carrinho</h2>
-        <p>Confira os itens escolhidos e finalize a compra quando quiser.</p>
       </div>
     </div>
     <div class="cart-list"></div>
-    <div class="cart-actions">
-      <div class="cart-summary">
-        <span>Total estimado</span>
-        <strong class="cart-total">R$ 0,00</strong>
+  </section>
+
+  <section id="checkout" class="page-section">
+    <button type="button" class="back-link" onclick="showView('cart')">&larr; Voltar ao carrinho</button>
+    <div class="section-title">
+      <div>
+        <h2>Finalizar compra</h2>
       </div>
-      <button class="btn btn-primary" type="button">Finalizar compra</button>
     </div>
+
+    <div class="checkout-layout">
+      <form id="checkoutForm" class="checkout-form" novalidate>
+        <fieldset class="co-step">
+          <legend><span class="co-num">1</span> Seus dados</legend>
+          <div class="co-grid">
+            <label class="auth-field co-span-2">
+              <span>Nome completo</span>
+              <input name="name" type="text" autocomplete="name" required />
+            </label>
+            <label class="auth-field">
+              <span>E-mail</span>
+              <input id="coEmail" name="email" type="email" autocomplete="email" required />
+            </label>
+            <label class="auth-field">
+              <span>Celular (WhatsApp)</span>
+              <input name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" data-mask="phone" placeholder="(00) 00000-0000" minlength="14" required />
+            </label>
+            <label class="auth-field">
+              <span>CPF</span>
+              <input name="cpf" type="text" inputmode="numeric" data-mask="cpf" placeholder="000.000.000-00" minlength="14" required />
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="co-step">
+          <legend><span class="co-num">2</span> Endereço de entrega</legend>
+          <div class="co-grid">
+            <label class="auth-field">
+              <span>CEP</span>
+              <input id="coCep" name="cep" type="text" inputmode="numeric" autocomplete="postal-code" data-mask="cep" placeholder="00000-000" minlength="9" required />
+              <small class="co-hint" id="cepHint"><a href="https://buscacepinter.correios.com.br/" target="_blank" rel="noopener">Não sei meu CEP</a></small>
+            </label>
+            <div></div>
+            <label class="auth-field co-span-2">
+              <span>Rua</span>
+              <input id="coStreet" name="street" type="text" autocomplete="address-line1" required />
+            </label>
+            <label class="auth-field">
+              <span>Número</span>
+              <input id="coNumber" name="number" type="text" required />
+            </label>
+            <label class="auth-field">
+              <span>Complemento <em>(opcional)</em></span>
+              <input name="complement" type="text" autocomplete="address-line2" />
+            </label>
+            <label class="auth-field">
+              <span>Bairro</span>
+              <input id="coDistrict" name="district" type="text" required />
+            </label>
+            <div class="co-city">
+              <label class="auth-field">
+                <span>Cidade</span>
+                <input id="coCity" name="city" type="text" autocomplete="address-level2" required />
+              </label>
+              <label class="auth-field">
+                <span>UF</span>
+                <input id="coState" name="state" type="text" autocomplete="address-level1" maxlength="2" required />
+              </label>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="co-step">
+          <legend><span class="co-num">3</span> Entrega</legend>
+          <div id="shippingOptions" class="co-options">
+            <p class="co-empty">Informe o CEP para ver as opções de entrega.</p>
+          </div>
+        </fieldset>
+
+        <fieldset class="co-step">
+          <legend><span class="co-num">4</span> Pagamento</legend>
+          <div class="co-options">
+            <label class="co-option">
+              <input type="radio" name="payment" value="pix" checked />
+              <span class="co-option-body">
+                <strong>Pix</strong>
+                <small>Aprovação na hora. O QR Code aparece depois de confirmar.</small>
+              </span>
+            </label>
+            <label class="co-option">
+              <input type="radio" name="payment" value="card" />
+              <span class="co-option-body">
+                <strong>Cartão de crédito</strong>
+                <small>Em até 3x sem juros.</small>
+              </span>
+            </label>
+          </div>
+
+          <!-- Só visual. Com gateway real, esses campos viram os campos seguros do provedor de pagamento. -->
+          <div class="co-card" id="cardFields" hidden>
+            <div class="co-grid">
+              <label class="auth-field co-span-2">
+                <span>Número do cartão</span>
+                <input name="cardNumber" type="text" inputmode="numeric" autocomplete="cc-number" data-mask="card" placeholder="0000 0000 0000 0000" />
+              </label>
+              <label class="auth-field co-span-2">
+                <span>Nome impresso no cartão</span>
+                <input name="cardName" type="text" autocomplete="cc-name" />
+              </label>
+              <label class="auth-field">
+                <span>Validade</span>
+                <input name="cardExp" type="text" inputmode="numeric" autocomplete="cc-exp" data-mask="exp" placeholder="MM/AA" />
+              </label>
+              <label class="auth-field">
+                <span>CVV</span>
+                <input name="cardCvv" type="text" inputmode="numeric" autocomplete="cc-csc" maxlength="4" placeholder="123" />
+              </label>
+              <label class="auth-field co-span-2">
+                <span>Parcelas</span>
+                <select name="installments" id="installments"></select>
+              </label>
+            </div>
+          </div>
+        </fieldset>
+
+        <button type="submit" class="btn btn-primary co-submit">Confirmar pedido</button>
+        <p class="co-legal">Ao confirmar, você concorda com os <a href="#">termos de uso</a> e a <a href="#">política de trocas</a>.</p>
+      </form>
+
+      <aside class="cart-box checkout-summary" id="checkoutSummary"></aside>
+    </div>
+  </section>
+
+  <section id="confirmation" class="page-section">
+    <div id="confirmationDetail"></div>
   </section>
 
   <footer class="footer">
     <div class="container footer-inner">
       <div class="footer-col">
-        <h3>KPOP</h3>
-        <p>Levando fofura e cultura geek para todo o Brasil.</p>
+        <h3>Memokki</h3>
+        <p>Photocards e acessórios de K-pop produzidos sob encomenda. Enviamos para todo o Brasil.</p>
       </div>
       <div class="footer-col">
-        <h4>Links Úteis</h4>
+        <h4>Ajuda</h4>
         <div class="footer-links">
-          <a href="#">Trocas e Devoluções</a>
-          <a href="#">Rastrear Pedido</a>
-          <a href="#">FAQ</a>
+          <a href="#">Trocas e devoluções</a>
+          <a href="#">Rastrear pedido</a>
+          <a href="#">Prazos de produção</a>
+          <a href="#">Perguntas frequentes</a>
+          <a href="#">Contato</a>
         </div>
       </div>
       <div class="footer-col">
         <h4>Newsletter</h4>
-        <p>Ganhe 10% OFF na primeira compra!</p>
+        <p>Avisamos quando chegam novos grupos e lotes. 10% off na primeira compra.</p>
         <form class="newsletter-form">
           <input type="email" placeholder="Seu e-mail" />
-          <button type="button">OK</button>
+          <button type="button">Assinar</button>
         </form>
       </div>
     </div>
@@ -317,7 +406,7 @@
     <div class="account-dropdown" id="accountDropdown">
       <div id="authStateBadge" class="auth-state-badge">Desconectado</div>
       <div class="account-dropdown-head">
-        <strong id="authUserName">Nenhum usuario conectado</strong>
+        <strong id="authUserName">Você não está conectado</strong>
         <span id="authUserEmail">Entre com sua conta</span>
       </div>
       <form id="loginForm" class="auth-form auth-form-compact">
@@ -339,6 +428,8 @@
       <p id="authFeedback" class="auth-feedback" aria-live="polite"></p>
     </div>
   </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <script src="firebase-config.js?v=20260429-3"></script>
